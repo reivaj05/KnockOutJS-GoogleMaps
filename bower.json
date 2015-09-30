@@ -1,0 +1,19 @@
+{
+  "name": "Knockoutjs-GoogleMaps",
+  "version": "0.0.0",
+  "authors": [
+    "Javier Sanchez <reivaj0705@gmail.com>"
+  ],
+  "description": "Application using KockoutJS library and Google maps API tho show data from a neigborhood",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "knockout": "~3.3.0"
+  }
+}
