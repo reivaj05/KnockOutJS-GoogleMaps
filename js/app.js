@@ -21,21 +21,23 @@ var ViewModel = function(){
     self.editLocation = function(){
         console.log('editLocation');
     };
-    self.removeLocation = function(){
+    self.removeLocation = function(index){
         self.locations.remove(this);
         self.updateLocations();
+        self.map.deleteMarker(index);
     };
     self.addLocation = function(){
+        var value = self.locationLabel();
         self.locations.push({
-            name: self.locationLabel()
+            name: value
         });
+        self.map.addMarker(value);
         self.updateLocations();
         self.updateShowAddLocationForm();
     };
 
     self.updateLocations = function(){
         localStorage.locations = JSON.stringify(self.locations());
-        self.init();
     };
 
     self.updateShowAddLocationForm = function(){
