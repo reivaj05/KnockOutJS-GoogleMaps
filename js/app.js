@@ -10,6 +10,13 @@ var ViewModel = function(){
     self.locations = ko.observableArray(JSON.parse(localStorage.locations));
     self.locationLabel = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
+    self.map = new GoogleMap();
+
+    self.init = function(){
+        self.locations().forEach(function(location){
+            self.map.addMarker(location.name);
+        });
+    };
 
     self.editLocation = function(){
         console.log('editLocation');
@@ -20,7 +27,7 @@ var ViewModel = function(){
     };
     self.addLocation = function(){
         self.locations.push({
-            location: self.locationLabel()
+            name: self.locationLabel()
         });
         self.updateLocations();
         self.updateShowAddLocationForm();
@@ -28,6 +35,7 @@ var ViewModel = function(){
 
     self.updateLocations = function(){
         localStorage.locations = JSON.stringify(self.locations());
+        self.init();
     };
 
     self.updateShowAddLocationForm = function(){
@@ -35,7 +43,7 @@ var ViewModel = function(){
         self.showAddLocationForm(!self.showAddLocationForm());
     };
 
-    
+    self.init();
 
 
 };
