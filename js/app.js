@@ -1,23 +1,35 @@
 (function() {
     if (!localStorage.locations) {
-        var locations = ["item1", "item2", "item3", "item4"];
-        localStorage.attendance = JSON.stringify(locations);
+        var locations = [];
+        localStorage.locations = JSON.stringify(locations);
     }
 }());
 
 var ViewModel = function(){
     var self = this;
-    self.locations = ko.observableArray(JSON.parse(localStorage.attendance));
+    self.locations = ko.observableArray(JSON.parse(localStorage.locations));
+    self.showAddLocationForm = ko.observable(false);
 
     self.editLocation = function(){
         console.log('editLocation');
     };
     self.removeLocation = function(){
-        console.log('removeLocation');
+        self.locations.remove(this);
+        self.updateLocations();
     };
     self.addLocation = function(){
         console.log('addLocation');
     };
+
+    self.updateLocations = function(){
+        localStorage.locations = JSON.stringify(self.locations());
+    };
+
+    self.updateShowAddLocationForm = function(){
+        self.showAddLocationForm(!self.showAddLocationForm());
+    };
+
+    
 
 
 };

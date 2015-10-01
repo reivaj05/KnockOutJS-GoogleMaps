@@ -13,6 +13,13 @@
                 float: right;
                 margin-left: 2%;
             }
+            .btn-primary{
+                margin-left: 10%
+            }
+            .form-location{
+                margin-left: 6%;
+                margin-top: 5%;
+            }
             #map{
                 margin-left: 2%;
             }
@@ -32,14 +39,30 @@
 
             <div class="row">
                 <div class="row col-md-3">
-                    <ul class="list-group" data-bind="foreach: locations">
-                        <li class="list-group-item">
-                            <span data-bind="text: $data"></span>
-                            <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.removeLocation"></span>
-                            <span class="glyphicon glyphicon-edit" data-bind="click: $parent.editLocation"></span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-primary" data-bind="click: addLocation">Add Location</button>
+                    <div class="row">
+                        <ul class="list-group" data-bind="foreach: locations">
+                            <li class="list-group-item">
+                                <span data-bind="text: location"></span>
+                                <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.removeLocation"></span>
+                                <span class="glyphicon glyphicon-edit" data-bind="click: $parent.editLocation"></span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <div class="row">
+                            <button class="btn btn-primary" data-bind="click: updateShowAddLocationForm, disable: showAddLocationForm">Add Location</button>
+                        </div>
+                        <div class="row" data-bind="visible: showAddLocationForm">
+                            <form role="form" class="form-location col-md-10">
+                                <div class="form-group">
+                                    <label>Location:</label>
+                                    <input class="form-control" id="location">
+                                </div>
+                                <button type="submit" class="btn btn-success" data-bind="click: addLocation">Save</button>
+                                <button type="submit" class="btn btn-danger" data-bind="click: updateShowAddLocationForm">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div id="map" style="height: 70%;"class="col-md-9">
                 </div>
@@ -55,7 +78,6 @@
               // Create a map object and specify the DOM element for display.
               var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
-                scrollwheel: false,
                 zoom: 8
               });
             }
