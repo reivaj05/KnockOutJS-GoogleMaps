@@ -8,6 +8,7 @@
 var ViewModel = function(){
     var self = this;
     self.locations = ko.observableArray(JSON.parse(localStorage.locations));
+    self.locationLabel = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
 
     self.editLocation = function(){
@@ -18,7 +19,11 @@ var ViewModel = function(){
         self.updateLocations();
     };
     self.addLocation = function(){
-        console.log('addLocation');
+        self.locations.push({
+            location: self.locationLabel()
+        });
+        self.updateLocations();
+        self.updateShowAddLocationForm();
     };
 
     self.updateLocations = function(){
@@ -26,6 +31,7 @@ var ViewModel = function(){
     };
 
     self.updateShowAddLocationForm = function(){
+        self.locationLabel('');
         self.showAddLocationForm(!self.showAddLocationForm());
     };
 

@@ -53,13 +53,13 @@
                             <button class="btn btn-primary" data-bind="click: updateShowAddLocationForm, disable: showAddLocationForm">Add Location</button>
                         </div>
                         <div class="row" data-bind="visible: showAddLocationForm">
-                            <form role="form" class="form-location col-md-10">
+                            <form class="form-location col-md-10" data-bind="submit: addLocation">
                                 <div class="form-group">
                                     <label>Location:</label>
-                                    <input class="form-control" id="location">
+                                    <input class="form-control" id="location" data-bind="value: locationLabel"required>
                                 </div>
-                                <button type="submit" class="btn btn-success" data-bind="click: addLocation">Save</button>
-                                <button type="submit" class="btn btn-danger" data-bind="click: updateShowAddLocationForm">Cancel</button>
+                                <button type="submit" class="btn btn-success">Save</button>
+                                <button class="btn btn-danger" data-bind="click: updateShowAddLocationForm">Cancel</button>
                             </form>
                         </div>
                     </div>
