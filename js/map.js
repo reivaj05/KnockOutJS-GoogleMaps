@@ -35,11 +35,22 @@ GoogleMap.prototype.addMarker = function(place){
     });
 };
 
+GoogleMap.prototype.deleteMarker = function(index){
+    this.showHideMarker(index, null);
+    this.markers.splice(index, 1);
+};
+
+
 GoogleMap.prototype.drawMarker = function(position){
-    new google.maps.Marker({
+    var marker = new google.maps.Marker({
         position: position,
         map: this.map,
         title: 'Hello World!'
     });
+    this.markers.push(marker);
+};
+
+GoogleMap.prototype.showHideMarker = function(index, map){
+    this.markers[index].setMap(map);
 };
 
