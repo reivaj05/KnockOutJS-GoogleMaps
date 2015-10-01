@@ -43,7 +43,7 @@
                         <ul class="list-group" data-bind="foreach: locations">
                             <li class="list-group-item">
                                 <span data-bind="text: name"></span>
-                                <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.removeLocation"></span>
+                                <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.removeLocation.bind($data, $index())"></span>
                                 <span class="glyphicon glyphicon-edit" data-bind="click: $parent.editLocation"></span>
                             </li>
                         </ul>
