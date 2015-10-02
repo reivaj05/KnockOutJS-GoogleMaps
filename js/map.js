@@ -2,7 +2,7 @@ var GoogleMap = function(){
     // Create a map object and specify the DOM element for display.
     this.map = new google.maps.Map(document.getElementById('map'));
     this.geocoder = new google.maps.Geocoder();
-    this.markers = [];
+    this.markers = {};
     this.initMap();
 };
 
@@ -30,27 +30,28 @@ GoogleMap.prototype.addMarker = function(place){
     var self = this;
     self.geocoder.geocode( { 'address': place}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK){
-            self.drawMarker(results[0].geometry.location);
+            self.drawMarker(results[0].geometry.location, place);
         }
     });
+
 };
 
-GoogleMap.prototype.deleteMarker = function(index){
-    this.showHideMarker(index, null);
-    this.markers.splice(index, 1);
+GoogleMap.prototype.deleteMarker = function(place){
+    this.showHideMarker(place, null);
+    delete this.markers[place];
 };
 
 
-GoogleMap.prototype.drawMarker = function(position){
+GoogleMap.prototype.drawMarker = function(position, place){
     var marker = new google.maps.Marker({
         position: position,
         map: this.map,
-        title: 'Hello World!'
+        title: place
     });
-    this.markers.push(marker);
+    this.markers[place] = marker;
 };
 
-GoogleMap.prototype.showHideMarker = function(index, map){
-    this.markers[index].setMap(map);
+GoogleMap.prototype.showHideMarker = function(place, map){
+    this.markers[place].setMap(map);
 };
 

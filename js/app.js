@@ -11,6 +11,7 @@ var ViewModel = function(){
     self.locationLabel = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
     self.map = new GoogleMap();
+    self.oldValue = '';
 
     self.init = function(){
         self.locations().forEach(function(location){
@@ -19,21 +20,36 @@ var ViewModel = function(){
     };
 
     self.editLocation = function(){
-        console.log('editLocation');
+        self.oldValue = this.name;
+        self.locationLabel(this.name);
+        self.updateShowAddLocationForm();
     };
-    self.removeLocation = function(index){
+    self.removeLocation = function(){
         self.locations.remove(this);
         self.updateLocations();
-        self.map.deleteMarker(index);
+        self.map.deleteMarker(this.name);
     };
+    // Find a better and cleaner way to add and edit locations
     self.addLocation = function(){
-        var value = self.locationLabel();
-        self.locations.push({
-            name: value
-        });
+        var value = self.locationLabel(),
+            loc = self.locations(),
+            addNew = true;
+        
+        for(var i=0; i<loc.length; i++)
+            if(loc[i].name === self.oldValue){
+                self.locations.splice(i, 1, {name: value});
+                self.map.deleteMarker(self.oldValue);
+                self.oldValue = '';
+                addNew = false;
+            }
+        if(addNew){
+            self.locations.push({
+                name: value
+            });
+        }
         self.map.addMarker(value);
+        self.locationLabel('');
         self.updateLocations();
-        self.updateShowAddLocationForm();
     };
 
     self.updateLocations = function(){
@@ -41,7 +57,6 @@ var ViewModel = function(){
     };
 
     self.updateShowAddLocationForm = function(){
-        self.locationLabel('');
         self.showAddLocationForm(!self.showAddLocationForm());
     };
 
