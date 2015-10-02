@@ -61,14 +61,14 @@ var ViewModel = function(){
     };
 
     self.filterResults = function(){
-        var value = self.searchInput();
+        var value = self.searchInput().toLowerCase();
         if(value === ''){
             self.map.showAllMarkers();
             self.locations(self.locationsSaved);
         }
         else{
             self.locations(self.locationsSaved.filter(function(location){
-                var startsWith = location.name.startsWith(value);
+                var startsWith = location.name.toLowerCase().startsWith(value);
                 self.map.showHideMarker(location.name, startsWith ? self.map.map : null);
                 return startsWith;
             }));
