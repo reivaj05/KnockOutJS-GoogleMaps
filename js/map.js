@@ -2,6 +2,7 @@ var GoogleMap = function(){
     // Create a map object and specify the DOM element for display.
     this.map = new google.maps.Map(document.getElementById('map'));
     this.geocoder = new google.maps.Geocoder();
+    this.infowindow = new google.maps.InfoWindow();
     this.markers = {};
     this.initMap();
 };
@@ -43,12 +44,19 @@ GoogleMap.prototype.deleteMarker = function(place){
 
 
 GoogleMap.prototype.drawMarker = function(position, place){
+
     var marker = new google.maps.Marker({
         position: position,
         map: this.map,
         title: place
-    });
+    }),
+    self = this;
+
     this.markers[place] = marker;
+    marker.addListener('click', function(){
+        self.infowindow.setContent(place);
+        self.infowindow.open(self.map, this);
+    });
 };
 
 GoogleMap.prototype.showHideMarker = function(place, map){
