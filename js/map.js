@@ -27,11 +27,27 @@ GoogleMap.prototype.initMap = function(){
     }
 };
 
-GoogleMap.prototype.addMarker = function(place){
-    var self = this;
+GoogleMap.prototype.addMarkersSaved = function(locations){
+    for(var i in locations){
+        var location = locations[i];
+        this.drawMarker({lat: location.location.H, lng: location.location.L}, location.name);
+    }
+};
+
+GoogleMap.prototype.addMarker = function(place, newLocation, callback){
+    var self = this,
+        location = null;
     self.geocoder.geocode( { 'address': place}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK){
-            self.drawMarker(results[0].geometry.location, place);
+            if(results.length > 1){
+                console.log(results);
+                return;
+            }
+            location = results[0].geometry.location;
+            newLocation['location'] = location;
+            console.log(location);
+            self.drawMarker(location, place);
+            callback();
         }
     });
 
