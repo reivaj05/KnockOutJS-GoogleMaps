@@ -20,7 +20,7 @@ var ViewModel = function(){
     };
 
     self.editLocation = function(){
-        self.oldValue = this.name;
+        self.oldValue = this;
         self.locationLabel(this.name);
         self.updateShowAddLocationForm();
     };
@@ -32,17 +32,14 @@ var ViewModel = function(){
     // Find a better and cleaner way to add and edit locations
     self.addLocation = function(){
         var value = self.locationLabel(),
-            loc = self.locations(),
-            addNew = true;
-        
-        for(var i=0; i<loc.length; i++)
-            if(loc[i].name === self.oldValue){
-                self.locations.splice(i, 1, {name: value});
-                self.map.deleteMarker(self.oldValue);
-                self.oldValue = '';
-                addNew = false;
-            }
-        if(addNew){
+            index = self.locations.indexOf(self.oldValue);
+
+        if(index >= 0){
+            self.locations.splice(index, 1, {name: value});
+            self.map.deleteMarker(self.oldValue.name);
+            self.oldValue = '';
+        }
+        else{
             self.locations.push({
                 name: value
             });
