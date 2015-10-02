@@ -7,8 +7,10 @@
 
 var ViewModel = function(){
     var self = this;
-    self.locations = ko.observableArray(JSON.parse(localStorage.locations));
+    self.locationsSaved = JSON.parse(localStorage.locations);
+    self.locations = ko.observableArray(self.locationsSaved);
     self.locationLabel = ko.observable('');
+    self.searchInput = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
     self.map = new GoogleMap();
     self.oldValue = '';
@@ -50,11 +52,28 @@ var ViewModel = function(){
     };
 
     self.updateLocations = function(){
-        localStorage.locations = JSON.stringify(self.locations());
+        self.locationsSaved = self.locations();
+        localStorage.locations = JSON.stringify(self.locationsSaved);
     };
 
     self.updateShowAddLocationForm = function(){
         self.showAddLocationForm(!self.showAddLocationForm());
+    };
+
+    self.filterResults = function(){
+        var value = self.searchInput();
+        if(value === ''){
+            self.map.showAllMarkers();
+            self.locations(self.locationsSaved);
+        }
+        else{
+            self.locations(self.locationsSaved.filter(function(location){
+                var startsWith = location.name.startsWith(value);
+                self.map.showHideMarker(location.name, startsWith ? self.map.map : null);
+                return startsWith;
+            }));
+        }
+        return true;
     };
 
     self.init();

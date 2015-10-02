@@ -45,12 +45,12 @@ GoogleMap.prototype.deleteMarker = function(place){
 
 GoogleMap.prototype.drawMarker = function(position, place){
 
-    var marker = new google.maps.Marker({
-        position: position,
-        map: this.map,
-        title: place
-    }),
-    self = this;
+    var self = this,
+        marker = new google.maps.Marker({
+            position: position,
+            map: this.map,
+            title: place
+        });
 
     this.markers[place] = marker;
     marker.addListener('click', function(){
@@ -61,5 +61,10 @@ GoogleMap.prototype.drawMarker = function(position, place){
 
 GoogleMap.prototype.showHideMarker = function(place, map){
     this.markers[place].setMap(map);
+};
+
+GoogleMap.prototype.showAllMarkers = function(){
+    for(var marker in this.markers)
+        this.showHideMarker(marker, this.map);
 };
 
