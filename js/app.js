@@ -16,9 +16,7 @@ var ViewModel = function(){
     self.oldValue = '';
 
     self.init = function(){
-        self.locations().forEach(function(location){
-            self.map.addMarker(location.name);
-        });
+        self.map.addMarkersSaved(self.locationsSaved);
     };
 
     self.editLocation = function(){
@@ -34,21 +32,18 @@ var ViewModel = function(){
     // Find a better and cleaner way to add and edit locations
     self.addLocation = function(){
         var value = self.locationLabel(),
-            index = self.locations.indexOf(self.oldValue);
-
+            index = self.locations.indexOf(self.oldValue),
+            newLocation = { name: value };
         if(index >= 0){
-            self.locations.splice(index, 1, {name: value});
+            self.locations.splice(index, 1, newLocation);
             self.map.deleteMarker(self.oldValue.name);
             self.oldValue = '';
         }
         else{
-            self.locations.push({
-                name: value
-            });
+            self.locations.push(newLocation);
         }
-        self.map.addMarker(value);
+        self.map.addMarker(value, newLocation, self.updateLocations);
         self.locationLabel('');
-        self.updateLocations();
     };
 
     self.updateLocations = function(){
