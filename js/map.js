@@ -37,33 +37,15 @@ GoogleMap.prototype.addMarkersSaved = function(locations){
 // Find a better and cleaner way to add locations
 GoogleMap.prototype.addMarker = function(place, newLocation, availableLocations, locations, index, callback){
     var self = this,
-        location = null,
-        locationsAux = [];
+        location = null;
+
     self.geocoder.geocode( { 'address': place}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK){
             if(results.length > 1){
-                for(var i in results){
-                    location = results[i];
-                    locationsAux.push({
-                        address: location.formatted_address,
-                        location: location.geometry.location
-                    });
-                }
-                availableLocations(locationsAux);
-                $('#myModal').modal();
+                self.setAvailableLocationsList(location, results, availableLocations);
                 $('#btnAddAvailableLocation').click(function(event){
-                    var val = $('input[name="availableLocations"]:checked').val();
-                    if (val){
-                        var valSplit = val.split(','),
-                            lat = valSplit[0].substring(1),
-                            lng = valSplit[1].substring(1, valSplit[1].length-1),
-                            loc = {H: parseFloat(lat), L: parseFloat(lng)};
-                        newLocation['location'] = loc;
-                        self.drawMarker({lat: loc.H, lng: loc.L}, place);
-                        callback();
-                        $('#myModal').modal('hide');
-                        event.preventDefault();
-                    }
+                    self.addAvailableLocationSelected(callback, newLocation, place);
+                    event.preventDefault();
                 });
                 return;
             }
@@ -71,7 +53,6 @@ GoogleMap.prototype.addMarker = function(place, newLocation, availableLocations,
             newLocation['location'] = location;
             self.drawMarker(location, place);
         }
-        // TODO Show message when a locations for a search couldn't be found
         else{
             alert("Couldn't find locations for this seacrh");
             if(index >= 0)
@@ -81,7 +62,33 @@ GoogleMap.prototype.addMarker = function(place, newLocation, availableLocations,
         }
         callback();
     });
+};
 
+GoogleMap.prototype.addAvailableLocationSelected = function(callback, newLocation, place){
+    var val = $('input[name="availableLocations"]:checked').val();
+    if (val && !newLocation['location']){
+        var valSplit = val.split(','),
+            lat = valSplit[0].substring(1),
+            lng = valSplit[1].substring(1, valSplit[1].length-1),
+            loc = {H: parseFloat(lat), L: parseFloat(lng)};
+        newLocation['location'] = loc;
+        this.drawMarker({lat: loc.H, lng: loc.L}, place);
+        callback();
+        $('#myModal').modal('hide');
+    }
+};
+
+GoogleMap.prototype.setAvailableLocationsList = function(location, results, availableLocations){
+    var locationsAux = [];
+    for(var i in results){
+        location = results[i];
+        locationsAux.push({
+            address: location.formatted_address,
+            location: location.geometry.location
+        });
+    }
+    availableLocations(locationsAux);
+    $('#myModal').modal();
 };
 
 GoogleMap.prototype.deleteMarker = function(place){
