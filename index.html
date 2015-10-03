@@ -70,10 +70,38 @@
             </div>
 
         </div>
+        <div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">We found more that one place, please select one before continue</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group" data-bind="foreach: availableLocations">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="availableLocations" data-bind="value: location" required>
+                                        <span data-bind="text: address"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button id="btnAddAvailableLocation" type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <script src="bower_components/knockout/dist/knockout.js"></script>
+        <script src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="bower_components/bootstrap/js/modal.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
         <script src="js/map.js"></script>
         <script src="js/app.js"></script>
-        
     </body>
 </html>

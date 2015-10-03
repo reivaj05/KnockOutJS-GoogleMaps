@@ -4,11 +4,12 @@
         localStorage.locations = JSON.stringify(locations);
     }
 }());
-
+// TODO separate logic to edit and edit locations
 var ViewModel = function(){
     var self = this;
     self.locationsSaved = JSON.parse(localStorage.locations);
     self.locations = ko.observableArray(self.locationsSaved);
+    self.availableLocations = ko.observableArray([]);
     self.locationLabel = ko.observable('');
     self.searchInput = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
@@ -30,6 +31,7 @@ var ViewModel = function(){
         self.map.deleteMarker(this.name);
     };
     // Find a better and cleaner way to add and edit locations
+    // TODO fix editing form and toggle behaviuor properly
     self.addLocation = function(){
         var value = self.locationLabel(),
             index = self.locations.indexOf(self.oldValue),
@@ -42,7 +44,7 @@ var ViewModel = function(){
         else{
             self.locations.push(newLocation);
         }
-        self.map.addMarker(value, newLocation, self.updateLocations);
+        self.map.addMarker(value, newLocation, self.availableLocations, self.locations, index, self.updateLocations);
         self.locationLabel('');
     };
 
