@@ -107,9 +107,17 @@ GoogleMap.prototype.drawMarker = function(position, place){
         });
     this.markers[place] = marker;
     marker.addListener('click', function(){
-        self.infowindow.setContent(place);
-        self.infowindow.open(self.map, this);
+        self.setMapInfo(place, this);
     });
+};
+
+GoogleMap.prototype.setMapInfo = function(place, marker){
+    this.infowindow.setContent(place);
+    this.infowindow.open(this.map, marker);
+};
+
+GoogleMap.prototype.getMarker = function(place){
+    return this.markers[place];
 };
 
 GoogleMap.prototype.showHideMarker = function(place, map){

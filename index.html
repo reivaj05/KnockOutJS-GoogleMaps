@@ -6,10 +6,7 @@
         <title>KnockoutJS/GoogleMaps</title>
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
         <style>
-            .glyphicon-edit{
-                float: right;
-            }
-            .glyphicon-remove-circle{
+            .glyphicon{
                 float: right;
                 margin-left: 2%;
             }
@@ -45,6 +42,7 @@
                                 <span data-bind="text: name"></span>
                                 <span class="glyphicon glyphicon-remove-circle" data-bind="click: $parent.removeLocation"></span>
                                 <span class="glyphicon glyphicon-edit" data-bind="click: $parent.editLocation"></span>
+                                <span class="glyphicon glyphicon-question-sign" data-bind="click: $parent.showLocationInfo"></span>
                             </li>
                         </ul>
                     </div>

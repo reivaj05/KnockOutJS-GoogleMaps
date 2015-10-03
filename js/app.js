@@ -73,6 +73,11 @@ var ViewModel = function(){
         return true;
     };
 
+    self.showLocationInfo = function(data){
+        var place = data.name;
+        self.map.setMapInfo(place, self.map.getMarker(place));
+    };
+
     self.init();
 
 
