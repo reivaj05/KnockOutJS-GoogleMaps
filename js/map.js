@@ -4,6 +4,7 @@ var GoogleMap = function(){
     this.geocoder = new google.maps.Geocoder();
     this.infowindow = new google.maps.InfoWindow();
     this.markers = {};
+    this.instagram = new Instagram();
     this.initMap();
 };
 
@@ -114,6 +115,7 @@ GoogleMap.prototype.drawMarker = function(position, place){
 GoogleMap.prototype.setMapInfo = function(place, marker){
     this.infowindow.setContent(place);
     this.infowindow.open(this.map, marker);
+    this.instagram.searchLocation(place, marker);
 };
 
 GoogleMap.prototype.getMarker = function(place){
