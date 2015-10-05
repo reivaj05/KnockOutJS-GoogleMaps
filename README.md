@@ -7,8 +7,6 @@ Application to add, edit and delete places in a google map and show instagram pi
 * Use of Instagram API to retrieve images taken in a specific place
 * Use of yelp API to get information from a specific place
 
-Django Social APIs
-
 ### Requirements
 
 * [NodeJS](https://nodejs.org/en/) 
