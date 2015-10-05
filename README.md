@@ -56,13 +56,4 @@ file
 ```sh
 python -m SimpleHTTPServer 8000
 ```
-* Take a look, 
-
-### Contributing
-
-To ensure the project quality, you must run the following script before every
-commit and make sure no problems were detected
-
-```sh
-sh tests.sh
-```
+* Take a look
