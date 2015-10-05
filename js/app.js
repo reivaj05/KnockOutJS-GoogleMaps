@@ -13,7 +13,8 @@ var ViewModel = function(){
     self.locationLabel = ko.observable('');
     self.searchInput = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
-    self.map = new GoogleMap();
+    self.instagramResults = ko.observableArray([]);
+    self.map = new GoogleMap(self.instagramResults);
     self.oldValue = '';
 
     self.init = function(){

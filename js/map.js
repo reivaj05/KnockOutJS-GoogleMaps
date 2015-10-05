@@ -1,10 +1,10 @@
-var GoogleMap = function(){
+var GoogleMap = function(instagramResults){
     // Create a map object and specify the DOM element for display.
     this.map = new google.maps.Map(document.getElementById('map'));
     this.geocoder = new google.maps.Geocoder();
     this.infowindow = new google.maps.InfoWindow();
     this.markers = {};
-    this.instagram = new Instagram();
+    this.instagram = new Instagram(instagramResults);
     this.initMap();
 };
 
@@ -115,7 +115,7 @@ GoogleMap.prototype.drawMarker = function(position, place){
 GoogleMap.prototype.setMapInfo = function(place, marker){
     this.infowindow.setContent(place);
     this.infowindow.open(this.map, marker);
-    this.instagram.searchLocation(place, marker);
+    this.instagram.getResults(place, marker);
 };
 
 GoogleMap.prototype.getMarker = function(place){
