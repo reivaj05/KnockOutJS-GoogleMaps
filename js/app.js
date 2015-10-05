@@ -14,6 +14,7 @@ var ViewModel = function(){
     self.searchInput = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
     self.instagramResults = ko.observableArray([]);
+    self.yelpResults = ko.observableArray([]);
     self.map = new GoogleMap(self.instagramResults);
     self.oldValue = '';
 
@@ -78,6 +79,14 @@ var ViewModel = function(){
         var place = data.name;
         self.map.setMapInfo(place, self.map.getMarker(place));
     };
+
+    self.showInstagramResults = ko.computed(function(){
+        return self.instagramResults().length > 0;
+    });
+
+    self.showYelpResults = ko.computed(function(){
+        return self.yelpResults().length > 0;
+    });
 
     self.init();
 
