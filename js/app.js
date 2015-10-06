@@ -88,6 +88,11 @@ var ViewModel = function(){
         return self.yelpResults().length > 0;
     });
 
+    self.placeSelected = ko.computed(function(){
+        if (self.instagramResults().length > 0)
+            return 'Instagram pictures taken in "'+self.map.currentMarker.title+'":';
+    });
+
     self.init();
 
 
