@@ -15,7 +15,7 @@ var ViewModel = function(){
     self.showAddLocationForm = ko.observable(false);
     self.instagramResults = ko.observableArray([]);
     self.yelpResults = ko.observableArray([]);
-    self.map = new GoogleMap(self.instagramResults);
+    self.map = new GoogleMap(self.instagramResults, self.yelpResults);
     self.oldValue = '';
 
     self.init = function(){
