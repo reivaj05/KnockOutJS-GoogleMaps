@@ -80,16 +80,25 @@
                     <div data-bind="foreach: instagramResults">
                         <div class="instagram-result col-md-2">
                             <a target="_blank" data-bind="attr: { href: link}">
-                                <img class="img-responsive img-circle" data-bind="attr: { src: image, alt: caption}">
+                                <img class="img-responsive img-circle" data-bind="attr: { src: image }">
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" data-bind="visible: showInstagramResults">
+            <div class="row" data-bind="visible: showFoursquareResults">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="bg-primary">Yelp comments of this place:</h1>
+                        <h1 class="bg-primary" data-bind="text: placeFoursquareSelected"></h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div data-bind="foreach: foursquareResults">
+                        <div class="foursquare-result col-md-2">
+                            <a target="_blank" data-bind="attr: { href: link}">
+                                <span data-bind="text: name"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,7 +136,7 @@
         <script src="bower_components/bootstrap/js/modal.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js"></script>
         <script src="js/keys.js"></script>
-        <script src="js/yelp.js"></script>
+        <script src="js/foursquare.js"></script>
         <script src="js/instagram.js"></script>
         <script src="js/map.js"></script>
         <script src="js/app.js"></script>

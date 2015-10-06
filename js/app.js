@@ -14,8 +14,8 @@ var ViewModel = function(){
     self.searchInput = ko.observable('');
     self.showAddLocationForm = ko.observable(false);
     self.instagramResults = ko.observableArray([]);
-    self.yelpResults = ko.observableArray([]);
-    self.map = new GoogleMap(self.instagramResults, self.yelpResults);
+    self.foursquareResults = ko.observableArray([]);
+    self.map = new GoogleMap(self.instagramResults, self.foursquareResults);
     self.oldValue = '';
 
     self.init = function(){
@@ -84,13 +84,18 @@ var ViewModel = function(){
         return self.instagramResults().length > 0;
     });
 
-    self.showYelpResults = ko.computed(function(){
-        return self.yelpResults().length > 0;
+    self.showFoursquareResults = ko.computed(function(){
+        return self.foursquareResults().length > 0;
     });
 
     self.placeSelected = ko.computed(function(){
         if (self.instagramResults().length > 0)
             return 'Instagram pictures taken in "'+self.map.currentMarker.title+'":';
+    });
+
+    self.placeFoursquareSelected = ko.computed(function(){
+        if (self.foursquareResults().length > 0)
+            return 'FourSquare places founded near from "'+self.map.currentMarker.title+'":';
     });
 
     self.init();
