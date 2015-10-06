@@ -2,7 +2,7 @@ var Instagram = function(instagramResults){
     this.instagramResults = instagramResults;
 };
 
-Instagram.prototype.getResults = function(place, marker){
+Instagram.prototype.getResults = function(marker){
     var pos =  marker.position,
         lat = pos.H,
         lng = pos.L,
@@ -25,7 +25,6 @@ Instagram.prototype.getResults = function(place, marker){
             var result = results[i];
             if(result.type === 'image'){
                 var formattedResult = {
-                    caption: result.caption ? result.caption.text.slice(0,100)+' ...' : place,
                     image: result.images.thumbnail.url,
                     link: result.link
                 };
