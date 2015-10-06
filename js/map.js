@@ -1,4 +1,4 @@
-var GoogleMap = function(instagramResults){
+var GoogleMap = function(instagramResults, yelpResults){
     // Create a map object and specify the DOM element for display.
     this.map = new google.maps.Map(document.getElementById('map'));
     this.geocoder = new google.maps.Geocoder();
@@ -6,6 +6,7 @@ var GoogleMap = function(instagramResults){
     this.markers = {};
     this.currentMarker = null;
     this.instagram = new Instagram(instagramResults);
+    this.yelp = new Yelp(yelpResults);
     this.initMap();
 };
 
@@ -117,6 +118,7 @@ GoogleMap.prototype.setMapInfo = function(place, marker){
     this.infowindow.setContent(place);
     this.infowindow.open(this.map, marker);
     this.instagram.getResults(place, marker);
+    this.yelp.getResults(place, marker);
     this.currentMarker = marker;
 };
 
