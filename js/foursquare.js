@@ -26,15 +26,15 @@ Foursquare.prototype.getResults = function(marker){
         var results = data.response.venues;
         for(var i in results){
             var result = results[i];
+                address = result.location.address+'. '+result.location.city+', '+result.location.state+'. '+result.location.country;
+            var twitter = result.contact.twitter;
             var formattedResult = {
                 name: result.name,
                 link: result.url,
-                twitter: result.contact.twitter,
+                twitter: twitter ? 'https://twitter.com/'+twitter : false,
                 phone: result.contact.formattedPhone,
                 checkinsCount: result.stats.checkinsCount,
-                address : result.location.formattedAddress[0],
-                cp : result.location.formattedAddress[1],
-                country : result.location.formattedAddress[2]
+                address : address,
             };
             self.foursquareResults.push(formattedResult);
         }
