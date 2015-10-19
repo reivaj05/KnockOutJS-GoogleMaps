@@ -4,8 +4,8 @@ var Instagram = function(instagramResults){
 
 Instagram.prototype.getResults = function(marker){
     var pos =  marker.position,
-        lat = pos.H,
-        lng = pos.L,
+        lat = pos.lat(),
+        lng = pos.lng(),
         self = this;
     $.ajax({
         method: 'GET',
